@@ -2,7 +2,6 @@ import * as React from 'react';
 import type { AnyObject } from '../../types';
 import type { RefUpload, UploadProps } from './interface';
 import { Dropzone as ForwardDropzone } from './index';
-
 // import ImageList from './ImageList';
 
 export const Upload = <RecordType extends AnyObject = AnyObject>(

@@ -44,7 +44,7 @@ export const Dropzone = <RecordType extends AnyObject = AnyObject>(
   });
   console.log('_renderTimeRef:', _renderTimeRef, 'fileType:', fileType);
   return (
-    <div className="container">
+    <div className="container" ref={ref}>
       <div {...getRootProps({ className: prefix('dropzone') })}>
         <input {...getInputProps()} />
         {isDragAccept && <p>All files will be accepted</p>}

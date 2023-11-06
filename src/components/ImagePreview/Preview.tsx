@@ -1,5 +1,4 @@
 import * as React from 'react';
-import type { AnyObject } from '../../types';
 import type { PreviewProps } from './interface';
 import ImageList from './ImageList';
 
@@ -8,8 +7,8 @@ export const Preview = (
   ref: React.Ref<HTMLDivElement>
 ) => {
   return (
-    <div>
-      <>1</>
+    <div ref={ref}>
+      <>{props.uri}</>
     </div>
   );
 };
