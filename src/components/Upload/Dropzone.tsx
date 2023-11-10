@@ -24,13 +24,33 @@ const Accepts: FileAccepts = {
 };
 const defaultFileType: FileType = 'image';
 
+const maxLength = 2;
+
+function NameLengthValidato(file: File) {
+  if (file.name.length > maxLength) {
+    return {
+      code: 'name-too-large',
+      message: `Name is larger than ${maxLength} characters`
+    };
+  }
+  return null;
+}
+
 export const Dropzone = <RecordType extends AnyObject = AnyObject>(
   props: DropzoneProps<RecordType>,
   ref: React.Ref<HTMLDivElement>
 ) => {
+  const [files, setFiles] = React.useState<File[]>([]);
   const { fileType: _fileType, _renderTimeRef } = props;
   const fileType: FileType = !_fileType ? defaultFileType : _fileType;
-  const accept = Accepts[`${fileType}/*`] as FileAccepts;
+  const acceptType = `${fileType}/*`;
+  const accept = Accepts[acceptType as keyof FileAccepts] as FileAccepts;
+
+  const onDrop = React.useCallback((acceptedFiles: File[]) => {
+    // Do something with the files
+    console.log('acceptedFiles:', acceptedFiles);
+    setFiles(acceptedFiles as File[]);
+  }, []);
 
   const {
     getRootProps,
@@ -39,10 +59,10 @@ export const Dropzone = <RecordType extends AnyObject = AnyObject>(
     isDragAccept,
     isDragReject
   } = useDropzone({
-    accept: accept,
-    onDrop: files => console.log(files)
+    accept: { [acceptType as string]: [] },
+    onDrop: onDrop
+    // validator: NameLengthValidato
   });
-  console.log('_renderTimeRef:', _renderTimeRef, 'fileType:', fileType);
   return (
     <div className="container" ref={ref}>
       <div {...getRootProps({ className: prefix('dropzone') })}>
@@ -51,8 +71,7 @@ export const Dropzone = <RecordType extends AnyObject = AnyObject>(
         {isDragReject && <p>Some files will be rejected</p>}
         {!isDragActive && <p>Drop some files here ...</p>}
       </div>
-      <ImagePreview instance={1} uri={''} />
-      <ImagePreview.ImageList list={[]} />
+      <ImagePreview.ImageList list={files} />
     </div>
   );
 };

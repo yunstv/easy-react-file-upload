@@ -8,7 +8,7 @@ export const Preview = (
 ) => {
   return (
     <div ref={ref}>
-      <>{props.uri}</>
+      <img src={props.uri} title={props.uri} />
     </div>
   );
 };
