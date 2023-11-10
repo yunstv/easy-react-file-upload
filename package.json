@@ -21,7 +21,7 @@
   "unpkg": "dist/easy-react-file-upload.umd.js",
   "source": "src/index.ts",
   "scripts": {
-    "start": "cd example && npm run start",
+    "start": "cd example && rimraf .parcel-cache dist &&  npm run start",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
