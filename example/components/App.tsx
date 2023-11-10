@@ -6,7 +6,7 @@ import { EasyUpload } from '../../src';
 export const App = () => {
   return (
     <Styled.Container>
-      <EasyUpload fileType={'text'} />
+      <EasyUpload fileType={'image'} />
     </Styled.Container>
   );
 };
